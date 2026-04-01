@@ -89,7 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
         addLoadingIndicator(loadingId);
 
         try {
-            const response = await fetch('http://localhost:3000/api/chat', {
+            // URL base, cámbiala por la de tu backend en Render cuando esté listo
+            const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === ''
+                ? 'http://localhost:3000'
+                : 'https://AQUI-IRA-TU-URL-DE-RENDER.onrender.com'; // TODO: Actualizar cuando Render te dé la URL
+
+            const response = await fetch(`${API_BASE_URL}/api/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
