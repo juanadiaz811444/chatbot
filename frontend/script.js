@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const apiKeyInput = document.getElementById('api-key-input');
     const saveKeyBtn = document.getElementById('save-key-btn');
     const modalError = document.getElementById('modal-error');
-    
+
     const chatContainer = document.getElementById('chat-container');
     const chatMessages = document.getElementById('chat-messages');
     const messageInput = document.getElementById('message-input');
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         apiKeyInput.value = '';
         chatContainer.classList.add('hidden');
         apiModal.classList.remove('hidden');
-        
+
         // Reset chat completely
         chatMessages.innerHTML = `
             <div class="message bot">
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // URL base, cámbiala por la de tu backend en Render cuando esté listo
             const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === ''
                 ? 'http://localhost:3000'
-                : 'https://AQUI-IRA-TU-URL-DE-RENDER.onrender.com'; // TODO: Actualizar cuando Render te dé la URL
+                : 'https://chatbot-backend-g7z4.onrender.com';
 
             const response = await fetch(`${API_BASE_URL}/api/chat`, {
                 method: 'POST',
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Push to history
             messageHistory.push({ role: 'user', content: text });
             messageHistory.push({ role: 'assistant', content: data.reply });
-            
+
             // Keep history limited to last 10 messages to avoid sending too much context
             if (messageHistory.length > 20) {
                 messageHistory = messageHistory.slice(messageHistory.length - 20);
@@ -135,16 +135,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function addMessageToUI(sender, text) {
         const msgDiv = document.createElement('div');
         msgDiv.classList.add('message', sender);
-        
+
         const contentDiv = document.createElement('div');
         contentDiv.classList.add('message-content');
-        
+
         // Formateo muy básico (cambiar saltos de línea por <br>)
         contentDiv.innerHTML = text.replace(/\n/g, '<br>');
-        
+
         msgDiv.appendChild(contentDiv);
         chatMessages.appendChild(msgDiv);
-        
+
         scrollToBottom();
     }
 
@@ -152,10 +152,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const msgDiv = document.createElement('div');
         msgDiv.classList.add('message', 'bot');
         msgDiv.id = id;
-        
+
         const contentDiv = document.createElement('div');
         contentDiv.classList.add('message-content');
-        
+
         const typingIndicator = document.createElement('div');
         typingIndicator.classList.add('typing-indicator');
         typingIndicator.innerHTML = `
@@ -163,11 +163,11 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="typing-dot"></div>
             <div class="typing-dot"></div>
         `;
-        
+
         contentDiv.appendChild(typingIndicator);
         msgDiv.appendChild(contentDiv);
         chatMessages.appendChild(msgDiv);
-        
+
         scrollToBottom();
     }
 
